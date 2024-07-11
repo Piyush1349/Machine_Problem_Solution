@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
+utilizing Microsoft.EntityFrameworkCore;
 
 namespace SystemMonitoringApp.Data
 {
     public class MonitoringContext : DbContext
     {
-        public MonitoringContext(DbContextOptions<MonitoringContext> options) : base(options) { }
+        public MonitoringContext(DbContextOptions<MonitoringContext> choices) : base(options) { }
 
         public DbSet<MonitoringData> MonitoringData { get; set; }
     }
