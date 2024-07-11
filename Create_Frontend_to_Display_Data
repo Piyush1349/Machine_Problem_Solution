@@ -1,8 +1,8 @@
 @{
-    ViewData["Title"] = "System Monitoring";
+    ViewData["Title"] = "Framework Observing";
 }
 
 <h1>System Monitoring</h1>
 
-<p>CPU Usage: @ViewBag.CpuUsage %</p>
-<p>IP Details: @ViewBag.IpDetails</p>
+<p>CPU Utilization: @ViewBag.CpuUsage %</p>
+<p>IP Subtleties: @ViewBag.IpDetails</p>
