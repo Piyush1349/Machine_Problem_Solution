@@ -1,50 +1,50 @@
-Create a Controller to Collect System Information
-Create a new controller named MonitoringController.
+Make a Regulator to Gather Framework Data
+Make another regulator named MonitoringController.
 
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.NetworkInformation;
-using Microsoft.AspNetCore.Mvc;
+utilizing Framework;
+utilizing System.Diagnostics;
+utilizing System.Linq;
+utilizing System.Net.NetworkInformation;
+utilizing Microsoft.AspNetCore.Mvc;
 
 namespace SystemMonitoringApp.Controllers
 {
-    public class MonitoringController : Controller
+    public class MonitoringController : Regulator
     {
         private readonly MonitoringContext _context;
 
-        public MonitoringController(MonitoringContext context)
+        public MonitoringController(MonitoringContext setting)
         {
-            _context = context;
+            _setting = setting;
         }
 
-        public IActionResult Index()
+        public IActionResult File()
         {
             var cpuUsage = GetCpuUsage();
             var ipDetails = GetIpDetails();
 
-            // Save to database
+            // Save to information base
             SaveToDatabase(cpuUsage, ipDetails);
 
-            // Return the data to the view (optional)
+            // Return the information to the view (discretionary)
             ViewBag.CpuUsage = cpuUsage;
             ViewBag.IpDetails = ipDetails;
 
-            return View();
+            bring Perspective back();
         }
 
-        private float GetCpuUsage()
+        confidential float GetCpuUsage()
         {
-            using (var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total"))
+            utilizing (var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total"))
             {
-                // This call gives a valid value only after some delay
+                // This call gives a substantial worth solely after some postponement
                 cpuCounter.NextValue();
                 System.Threading.Thread.Sleep(1000);
-                return cpuCounter.NextValue();
+                bring cpuCounter.NextValue back();
             }
         }
 
-        private string GetIpDetails()
+        confidential string GetIpDetails()
         {
             var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
             var ipAddress = string.Empty;
@@ -64,7 +64,7 @@ namespace SystemMonitoringApp.Controllers
             return ipAddress.Trim();
         }
 
-        private void SaveToDatabase(float cpuUsage, string ipDetails)
+        confidential void SaveToDatabase(float cpuUsage, string ipDetails)
         {
             var monitoringData = new MonitoringData
             {
@@ -78,5 +78,5 @@ namespace SystemMonitoringApp.Controllers
     }
 }
 
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add bundle Microsoft.EntityFrameworkCore.SqlServer
+dotnet add bundle Microsoft.EntityFrameworkCore.Tools
