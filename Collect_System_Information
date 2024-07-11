@@ -1,0 +1,79 @@
+Create a Controller to Collect System Information
+Create a new controller named MonitoringController.
+
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Mvc;
+
+namespace SystemMonitoringApp.Controllers
+{
+    public class MonitoringController : Controller
+    {
+        private readonly MonitoringContext _context;
+
+        public MonitoringController(MonitoringContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var cpuUsage = GetCpuUsage();
+            var ipDetails = GetIpDetails();
+
+            // Save to database
+            SaveToDatabase(cpuUsage, ipDetails);
+
+            // Return the data to the view (optional)
+            ViewBag.CpuUsage = cpuUsage;
+            ViewBag.IpDetails = ipDetails;
+
+            return View();
+        }
+
+        private float GetCpuUsage()
+        {
+            using (var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total"))
+            {
+                // This call gives a valid value only after some delay
+                cpuCounter.NextValue();
+                System.Threading.Thread.Sleep(1000);
+                return cpuCounter.NextValue();
+            }
+        }
+
+        private string GetIpDetails()
+        {
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            var ipAddress = string.Empty;
+
+            foreach (var ni in networkInterfaces)
+            {
+                var ipProperties = ni.GetIPProperties();
+                var unicastAddresses = ipProperties.UnicastAddresses;
+                foreach (var address in unicastAddresses)
+                {
+                    if (address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        ipAddress += address.Address.ToString() + " ";
+                    }
+                }
+            }
+            return ipAddress.Trim();
+        }
+
+        private void SaveToDatabase(float cpuUsage, string ipDetails)
+        {
+            var monitoringData = new MonitoringData
+            {
+                CpuUsage = cpuUsage,
+                IpDetails = ipDetails
+            };
+
+            _context.MonitoringData.Add(monitoringData);
+            _context.SaveChanges();
+        }
+    }
+}
