@@ -1,0 +1,74 @@
+Step 1: Create a new (link unavailable) web application project in Visual Studio:
+
+// Create a new (link unavailable) web application project in Visual Studio
+// File -> New -> Project -> (link unavailable) Web Application
+// Name: CPUAndNetworkMonitor
+
+Step 2: Add a reference to the System.Management namespace:
+
+// Add a reference to the System.Management namespace
+// Right-click on the project -> Add Reference -> System.Management
+
+Step 3: Use the PerformanceCounter class to retrieve CPU utilization data:
+
+// Retrieve CPU utilization data
+PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+float cpuUtilization = cpuCounter.NextValue();
+
+Step 4: Use the System.Net.NetworkInformation namespace to retrieve network IP details:
+
+// Retrieve network IP details
+NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+string ipAddress = "";
+foreach (NetworkInterface networkInterface in networkInterfaces)
+{
+    ipAddress += networkInterface.GetIPProperties().UnicastAddresses[0].Address.ToString() + " ";
+}
+
+Step 5: Create a database in MS SQL Server:
+
+// Create a database in MS SQL Server
+// SQL Server Management Studio -> New Database -> CPUAndNetworkDB
+
+Step 6: Create a table in the database to store CPU utilization and network IP details:
+
+// Create a table in the database
+// SQL Server Management Studio -> New Table -> CPUAndNetworkData
+// Columns: CPUUtilization (float), IPAddress (nvarchar(50))
+
+Step 7: Use (link unavailable) or Entity Framework to connect to the database and store the data:
+
+// Store data in database using (link unavailable)
+SqlConnection conn = new SqlConnection("Data Source=<database_server>;Initial Catalog=<database_name>;Integrated Security=True");
+conn.Open();
+SqlCommand cmd = new SqlCommand("INSERT INTO CPUAndNetworkData (CPUUtilization, IPAddress) VALUES (@cpuUtilization, @ipAddress)", conn);
+cmd.Parameters.AddWithValue("@cpuUtilization", cpuUtilization);
+cmd.Parameters.AddWithValue("@ipAddress", ipAddress);
+cmd.ExecuteNonQuery();
+conn.Close();
+
+Step 8: Create a web page to display the data in a grid or chart:
+
+// Create a web page to display the data
+// Default.aspx
+// <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="False">
+// <Columns>
+// <asp:BoundColumn HeaderText="CPU Utilization" DataField="CPUUtilization" />
+// <asp:BoundColumn HeaderText="IP Address" DataField="IPAddress" />
+// </Columns>
+// </asp:GridView>
+
+Step 9: Use a timer or scheduling framework to periodically collect and store the data:
+
+// Use a timer to periodically collect and store the data
+Timer timer = new Timer();
+timer.Interval = 60 * 1000; // 1 minute
+timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+timer.Start();
+
+void timer_Elapsed(object sender, ElapsedEventArgs e)
+{
+    // Retrieve CPU utilization and network IP details
+    // Store data in database
+}
+
