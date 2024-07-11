@@ -1,0 +1,13 @@
+Create the Database and Table
+Execute the following SQL script to create the database and table.
+
+CREATE DATABASE SystemMonitoringDB;
+
+USE SystemMonitoringDB;
+
+CREATE TABLE MonitoringData (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Timestamp DATETIME DEFAULT GETDATE(),
+    CpuUsage FLOAT,
+    IpDetails NVARCHAR(255)
+);
