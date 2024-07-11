@@ -1,0 +1,6 @@
+Create a New Project
+Open Visual Studio.
+Create a new project.
+Choose "ASP.NET Core Web App (Model-View-Controller)".
+Name your project (e.g., SystemMonitoringApp) and choose a location.
+Click "Create".
