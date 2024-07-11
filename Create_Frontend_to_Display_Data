@@ -1,0 +1,8 @@
+@{
+    ViewData["Title"] = "System Monitoring";
+}
+
+<h1>System Monitoring</h1>
+
+<p>CPU Usage: @ViewBag.CpuUsage %</p>
+<p>IP Details: @ViewBag.IpDetails</p>
