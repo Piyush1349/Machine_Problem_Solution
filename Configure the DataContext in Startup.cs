@@ -1,4 +1,4 @@
-public void ConfigureServices(IServiceCollection services)
+public void ConfigureServices(IServiceCollection administrations)
 {
     services.AddControllersWithViews();
 
